@@ -56,31 +56,35 @@ classdef XMLParser
             % TLDR: There be demons ahead
             while obj.index <= length(obj.chars)
                 if obj.currentChar == '<'
-                    obj = obj.CollectNode();
+                    obj = obj.CollectNode('>');
                     disp(str(obj.collectedNode))
                 end
                 obj = obj.Advance();
             end
         end
 
-        function obj = CollectNode(obj)
+        function obj = CollectNode(obj, delimiter)
 
             % Uses slightly more memory than necessary but massively
             % improves parser speed. Dynamic vector allocation
             % is slow. This pre-allocates 2000 bytes of memory
             % for the tag data which should never causes RAM
             % limit issues on modern machines
+            % Measured speed improvement of ~200%
             tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
 
             obj = obj.Advance(); % Skip opening '<'
 
             i = 1;
-            while obj.currentChar ~= '>'
+            while obj.currentChar ~= delimiter
                 tagData(i) = obj.currentChar; 
                 i = i + 1;
                 obj = obj.Advance();
             end
 
+            % The Pre-allocation causes trailing whitespace
+            % strip() removes this in order to simplify
+            % downfield processing and reduce RAM load
             obj.collectedNode = Node(strip(tagData));
         end
         
