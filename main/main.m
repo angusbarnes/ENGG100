@@ -3,4 +3,8 @@
 % This ensures we split code effectively between
 % other external files
 persistantDataPath = pwd + "\..\data\";
-filename = persistantDataPath + input('Data File Name');
+%filename = persistantDataPath + input('Data File Name');
+test = XMLParser('sample.xml');
+tic
+test.Parse();
+toc

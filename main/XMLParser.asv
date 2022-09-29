@@ -19,8 +19,12 @@ classdef XMLParser
         EOF {mustBeNumeric}
     end
 
-    properties (Constant)
-        TOKEN_MAX_LENGTH = 2000;
+    properties (Access = protected)
+        currentChar char
+        collectedNode Node
+        chars
+        index {mustBeNumeric} = 0
+        EOF {mustBeNumeric}
     end
     methods
         function obj = XMLParser(filename)
@@ -64,24 +68,15 @@ classdef XMLParser
         end
 
         function obj = CollectNode(obj)
-
-            % Uses slightly more memory than necessary but massively
-            % improves parser speed. Dynamic vector allocation
-            % is slow. This pre-allocates 2000 bytes of memory
-            % for the tag data which should never causes RAM
-            % limit issues on modern machines
-            tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
+            tagData = '';
 
             obj = obj.Advance(); % Skip opening '<'
-
-            i = 1;
             while obj.currentChar ~= '>'
-                tagData(i) = obj.currentChar; 
-                i = i + 1;
+                tagData(end +1) = obj.currentChar; 
                 obj = obj.Advance();
             end
 
-            obj.collectedNode = Node(strip(tagData));
+            obj.collectedNode = Node(tagData);
         end
         
         % MATLAB's hair brained syntax makes this look weird
