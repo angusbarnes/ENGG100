@@ -2,6 +2,7 @@
 % Will read GPX file into usable format
 % Assigned to: Angus B
 classdef XMLParser
+   % Class variables
    properties
       filename
    end
