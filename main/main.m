@@ -5,6 +5,4 @@
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
 test = XMLParser('sample.xml');
-tic
 test.Parse();
-toc
