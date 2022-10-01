@@ -17,6 +17,9 @@ classdef XMLParser
         chars
         index {mustBeNumeric} = 0
         EOF {mustBeNumeric}
+        nodes = [Node("")]
+        expr = blanks(XMLParser.TOKEN_MAX_LENGTH)
+        exprIndex = 1
     end
 
     properties (Constant)
@@ -48,7 +51,7 @@ classdef XMLParser
             % We must advance the read head to the first character
             % before looping
             obj = obj.Advance(); 
-
+            
             % Like most things, MATLAB has a very poor implementation 
             % of class objects. Some instance reassignment is required
             % to self reference class values internally. We cannot
@@ -56,8 +59,12 @@ classdef XMLParser
             % TLDR: There be demons ahead
             while obj.index <= length(obj.chars)
                 if obj.currentChar == '<'
+                    obj = obj.EndExpression();
                     obj = obj.CollectNode('>');
-                    disp(str(obj.collectedNode))
+                    %disp(str(obj.collectedNode))
+                elseif obj.currentChar ~= ""
+                    obj.expr(obj.exprIndex) = obj.currentChar;
+                    obj.exprIndex = obj.exprIndex + 1;
                 end
                 obj = obj.Advance();
             end
@@ -74,9 +81,11 @@ classdef XMLParser
             tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
 
             obj = obj.Advance(); % Skip opening '<'
-
+            
             i = 1;
             while obj.currentChar ~= delimiter
+                % The list will dynamically extend if necessary
+                % TOKEN_MAX_LENGTH is therefore a soft limit
                 tagData(i) = obj.currentChar; 
                 i = i + 1;
                 obj = obj.Advance();
@@ -86,6 +95,19 @@ classdef XMLParser
             % strip() removes this in order to simplify
             % downfield processing and reduce RAM load
             obj.collectedNode = Node(strip(tagData));
+        end
+
+        function obj = EndExpression(obj)
+            
+            if isempty(obj.expr)
+                obj = obj;
+                return
+            end
+            %disp(strip(obj.expr))
+            obj.nodes = [obj.nodes, Node(strip(obj.expr))];
+            %disp(str(obj.nodes(end)))
+            obj.expr = blanks(XMLParser.TOKEN_MAX_LENGTH);
+            obj.exprIndex = 1;
         end
         
         % MATLAB's hair brained syntax makes this look weird
@@ -101,6 +123,13 @@ classdef XMLParser
                 obj.currentChar = -1;
             else
                 obj.currentChar = obj.chars(obj.index);
+            end
+        end
+
+        function obj = PrintNodes(obj)
+            disp(obj.nodes)
+            for i = 1:length(obj.nodes)
+                disp(str(obj.nodes(i)));
             end
         end
     end

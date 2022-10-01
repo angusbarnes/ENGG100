@@ -4,5 +4,8 @@
 % other external files
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
+tic
 test = XMLParser('Morning_Ride.gpx');
 test.Parse();
+test.PrintNodes();
+toc
