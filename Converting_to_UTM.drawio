@@ -1,1 +1,94 @@
-<mxfile host="app.diagrams.net" modified="2022-10-03T04:15:28.638Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53" version="20.4.0" etag="asDKo9cclbmQvW7Cq7Yb" type="github"><diagram id="x3zPfgm4_c-Ik43X_LJ4">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-10-03T05:00:20.746Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53" etag="pz2gPeRKsxtkNOIDbIIY" version="20.4.0" type="github">
+  <diagram id="x3zPfgm4_c-Ik43X_LJ4" name="Page-1">
+    <mxGraphModel dx="964" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-1" target="FE3DAwUlsIadKMjj8TfP-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="90" y="20" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-2" target="FE3DAwUlsIadKMjj8TfP-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-2" value="Get Longitude and Latitude" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-4" target="FE3DAwUlsIadKMjj8TfP-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-4" value="Calculate the longitude zone&amp;nbsp; using longitude" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-6" target="FE3DAwUlsIadKMjj8TfP-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-6" value="Calculate the longitude zone cm&amp;nbsp; using longitude zone" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-8" target="FE3DAwUlsIadKMjj8TfP-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-8" value="Calculate the delta longitude using longitude and longitude zone" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-10" target="FE3DAwUlsIadKMjj8TfP-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-10" value="Change latitude and altitude into radians" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-12" value="A" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="100" y="540" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-14" target="FE3DAwUlsIadKMjj8TfP-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-14" value="A" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-16" target="FE3DAwUlsIadKMjj8TfP-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-16" value="Declare constants" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-18" target="FE3DAwUlsIadKMjj8TfP-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-18" value="Calculate curvature of the coordinate using latitude in radians" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-21" target="FE3DAwUlsIadKMjj8TfP-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-21" value="calculate meridional arc using latitude in radians" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-25" value="B" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="310" y="540" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-27" value="B" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="510" y="20" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-28" target="FE3DAwUlsIadKMjj8TfP-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-28" value="Calculate Ki using the meridional arc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="FE3DAwUlsIadKMjj8TfP-30" target="FE3DAwUlsIadKMjj8TfP-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-30" value="Calculate Kii using the curvature of coordinate and the latitude in radians" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="490" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FE3DAwUlsIadKMjj8TfP-32" value="" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="490" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
