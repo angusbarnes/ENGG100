@@ -37,7 +37,7 @@ function [north, east] = convert(latitude, longitude)
     %the code above declares constants
 
     Meridional_Arc_S = A0 .* Lat_Rad - B0 .* sin(2 .* Lat_Rad) + C0 .* sin(4 .* Lat_Rad) - D0 .* sin(6 .* Lat_Rad) + E0 .* sin(8 .* Lat_Rad);
-    %the code above calculates the meridonal arc
+    %the code above calculates the meridional arc
 
     k0 = 0.9996;
     %the code above declares a constant
