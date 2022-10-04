@@ -5,7 +5,7 @@
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
 tic
-test = XMLParser('Morning_Ride.gpx');
+test = XMLParser('sample.xml');
 test.Parse();
 test.PrintNodes();
 toc

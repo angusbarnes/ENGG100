@@ -17,7 +17,7 @@ classdef XMLParser
         chars
         index {mustBeNumeric} = 0
         EOF {mustBeNumeric}
-        nodes = [Node("")]
+        nodes = [Node(""), Node("Hmm")]
         expr = blanks(XMLParser.TOKEN_MAX_LENGTH)
         exprIndex = 1
     end
@@ -61,7 +61,7 @@ classdef XMLParser
                 if obj.currentChar == '<'
                     obj = obj.EndExpression();
                     obj = obj.CollectNode('>');
-                    %disp(str(obj.collectedNode))
+                    disp(str(obj.collectedNode))
                 elseif obj.currentChar ~= ""
                     obj.expr(obj.exprIndex) = obj.currentChar;
                     obj.exprIndex = obj.exprIndex + 1;
@@ -95,6 +95,7 @@ classdef XMLParser
             % strip() removes this in order to simplify
             % downfield processing and reduce RAM load
             obj.collectedNode = Node(strip(tagData));
+            obj.nodes(end+1) = Node(strip(tagData));
         end
 
         function obj = EndExpression(obj)
@@ -103,9 +104,9 @@ classdef XMLParser
                 obj = obj;
                 return
             end
-            %disp(strip(obj.expr))
-            obj.nodes = [obj.nodes, Node(strip(obj.expr))];
-            %disp(str(obj.nodes(end)))
+            
+            obj.nodes(end +1 ) = Node(strip(obj.expr));
+            disp(strip(obj.expr))
             obj.expr = blanks(XMLParser.TOKEN_MAX_LENGTH);
             obj.exprIndex = 1;
         end
