@@ -5,7 +5,7 @@
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
 tic
-test = XMLParser('sample.xml');
+test = XMLParser('data_sample_2.gpx');
 result = test.Parse();
 
 nodes = result.nodes;
@@ -21,6 +21,10 @@ nodes = result.nodes;
 %     end
 % end
 
-for i = 1:length(nodes)
-    disp(nodes(i).Name)
-end
+% Get time in seconds since hourly UTC Epoch
+times = result.filter('time', XMLParser.TIME_HANDLING_METHOD);
+
+% Get elevations in meters above see level
+elevations = result.filter('ele', XMLParser.NUMERICAL_HANDLING_METHOD);
+disp(times)
+disp(elevations)

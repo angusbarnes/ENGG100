@@ -27,6 +27,10 @@ classdef XMLParser
 
     properties (Constant)
         TOKEN_MAX_LENGTH = 2000;
+        TIME_HANDLING_METHOD = 'TIME_FORMAT';
+        COORDINATE_HANDLING_METHOD = 'COORD';
+        NUMERICAL_HANDLING_METHOD = 'NUMBER';
+        DO_NOT_FORMAT = 'NULL_FORMAT';
     end
     methods
         function obj = XMLParser(filename)
@@ -94,7 +98,6 @@ classdef XMLParser
                 % and insert them as new nodes in the output
                  if obj.currentChar == '"'
                     obj = obj.CollectNode('"');
-                    disp("FOUND STRING")
                     obj = obj.Advance();
                  else
                     tagData(i) = obj.currentChar; 
@@ -146,6 +149,28 @@ classdef XMLParser
         function obj = PrintNodes(obj)
             for i = 1:length(obj.nodes)
                 disp(str(obj.nodes(i)));
+            end
+        end
+
+        function list = filter(obj, name, method)
+            list = [];
+            if strcmp(method, XMLParser.TIME_HANDLING_METHOD)
+                for i = 1:length(obj.nodes)
+                    if strcmp(obj.nodes(i).Name,'time')
+                        node =obj.nodes(i+1);
+                        minutes = str2double(node.Name(15:16));
+                        seconds = str2double(node.Name(18:19));
+                        list(end+1) = minutes*60 + seconds;
+                    end
+                end
+            elseif strcmp(method, XMLParser.NUMERICAL_HANDLING_METHOD)
+                for i = 1:length(obj.nodes)
+                    if strcmp(obj.nodes(i).Name,'ele')
+                        node =obj.nodes(i+1);
+                        number = str2double(node.Name);
+                        list(end+1) = number;
+                    end
+                end
             end
         end
     end

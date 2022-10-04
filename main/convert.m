@@ -70,7 +70,7 @@ function [north, east] = convert(latitude, longitude)
     %the code above declares a variable
 
     northing = add_north(Raw_Northing < 0);
-    northing = Raw_Northing(Raw_Northing >= 0);
+    northing = northing + Raw_Northing(Raw_Northing >= 0);
     %the code above calculates northing
     % adds 100000000 if raw northing is smaller than 0
 
