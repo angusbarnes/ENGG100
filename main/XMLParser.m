@@ -117,7 +117,6 @@ classdef XMLParser
         function obj = EndExpression(obj)
             
             if isempty(obj.expr)
-                obj = obj;
                 return
             end
             
