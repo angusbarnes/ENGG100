@@ -6,6 +6,21 @@ persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
 tic
 test = XMLParser('sample.xml');
-test.Parse();
-test.PrintNodes();
-toc
+result = test.Parse();
+
+nodes = result.nodes;
+
+% for i = 1:length(nodes)
+%     value = nodes(i).Name;
+%     if strcmp(value, "time")
+%         disp(str(nodes(i+1)))
+%     elseif strcmp(value, "ele")
+%         disp(str(nodes(i+1)))
+%     elseif strcmp(value, "trkseg")
+%         disp(str(nodes(i+1)))
+%     end
+% end
+
+for i = 1:length(nodes)
+    disp(nodes(i).Name)
+end

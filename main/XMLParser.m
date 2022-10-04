@@ -10,6 +10,7 @@ classdef XMLParser
     % Class variables
     properties
         filename
+        nodes = [Node("ROOT")]
     end
     properties (Access = protected)
         currentChar char
@@ -17,9 +18,11 @@ classdef XMLParser
         chars
         index {mustBeNumeric} = 0
         EOF {mustBeNumeric}
-        nodes = [Node(""), Node("Hmm")]
+        
         expr = blanks(XMLParser.TOKEN_MAX_LENGTH)
         exprIndex = 1
+
+        nodeIndex = 1
     end
 
     properties (Constant)
@@ -34,7 +37,7 @@ classdef XMLParser
         % This can be implemented using a cell array of
         % custom Node data types.
         % A Nodes can reference other subnodes or be a single value
-        function tree = Parse(obj)
+        function obj = Parse(obj)
             fileHandle = fopen(obj.filename, 'r');
             
             % Soft error on invalid Fid and return a null node
@@ -61,7 +64,7 @@ classdef XMLParser
                 if obj.currentChar == '<'
                     obj = obj.EndExpression();
                     obj = obj.CollectNode('>');
-                    disp(str(obj.collectedNode))
+%                     disp(str(obj.collectedNode))
                 elseif obj.currentChar ~= ""
                     obj.expr(obj.exprIndex) = obj.currentChar;
                     obj.exprIndex = obj.exprIndex + 1;
@@ -80,22 +83,32 @@ classdef XMLParser
             % Measured speed improvement of ~200%
             tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
 
-            obj = obj.Advance(); % Skip opening '<'
+            obj = obj.Advance(); % Skip opening delimeter
             
             i = 1;
             while obj.currentChar ~= delimiter
                 % The list will dynamically extend if necessary
                 % TOKEN_MAX_LENGTH is therefore a soft limit
-                tagData(i) = obj.currentChar; 
-                i = i + 1;
-                obj = obj.Advance();
+                
+                % If there is arguments in this XML tag, collec them
+                % and insert them as new nodes in the output
+                 if obj.currentChar == '"'
+                    obj = obj.CollectNode('"');
+                    disp("FOUND STRING")
+                    obj = obj.Advance();
+                 else
+                    tagData(i) = obj.currentChar; 
+                    i = i + 1;
+                    obj = obj.Advance();
+                 end
             end
 
             % The Pre-allocation causes trailing whitespace
             % strip() removes this in order to simplify
             % downfield processing and reduce RAM load
             obj.collectedNode = Node(strip(tagData));
-            obj.nodes(end+1) = Node(strip(tagData));
+            
+            obj = obj.Append(Node(strip(tagData)));            
         end
 
         function obj = EndExpression(obj)
@@ -105,8 +118,7 @@ classdef XMLParser
                 return
             end
             
-            obj.nodes(end +1 ) = Node(strip(obj.expr));
-            disp(strip(obj.expr))
+            obj = obj.Append(Node(strip(obj.expr)));
             obj.expr = blanks(XMLParser.TOKEN_MAX_LENGTH);
             obj.exprIndex = 1;
         end
@@ -127,8 +139,11 @@ classdef XMLParser
             end
         end
 
+        function obj = Append(obj, node)
+            obj.nodes(end + 1) = node;
+        end
+
         function obj = PrintNodes(obj)
-            disp(obj.nodes)
             for i = 1:length(obj.nodes)
                 disp(str(obj.nodes(i)));
             end
