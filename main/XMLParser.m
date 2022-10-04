@@ -150,7 +150,10 @@ classdef XMLParser
                 disp(str(obj.nodes(i)));
             end
         end
-
+        
+        % Hard coding filter routines is not good architecture for
+        % a general XML parser. But given time constraints and string performance
+        % limitations of MATLAB, it will be sufficient for our usecase
         function list = filter(obj, name, method)
             list = [];
             if strcmp(method, XMLParser.TIME_HANDLING_METHOD)

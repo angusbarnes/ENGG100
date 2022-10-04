@@ -5,7 +5,7 @@
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
 tic
-test = XMLParser('data_sample_2.gpx');
+test = XMLParser('sample.xml');
 result = test.Parse();
 
 nodes = result.nodes;
