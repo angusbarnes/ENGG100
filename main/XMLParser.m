@@ -7,11 +7,17 @@
 % Handling specific fields can be done down the line
 % This parser should be able to handle any XML file
 classdef XMLParser
+    
     % Class variables
     properties
         filename
         nodes = [Node("ROOT")]
     end
+
+    % For some reason exposing properties publicly slowed the program
+    % to a measurable extent. For this reason, as well as for cleaner code
+    % these properties can only be accessed inside this class and its
+    % children
     properties (Access = protected)
         currentChar char
         collectedNode Node
@@ -32,6 +38,7 @@ classdef XMLParser
         NUMERICAL_HANDLING_METHOD = 'NUMBER';
         DO_NOT_FORMAT = 'NULL_FORMAT';
     end
+
     methods
         function obj = XMLParser(filename)
             obj.filename = filename;
@@ -111,7 +118,8 @@ classdef XMLParser
             % downfield processing and reduce RAM load
             obj.collectedNode = Node(strip(tagData));
             
-            obj = obj.Append(Node(strip(tagData)));            
+            obj.nodes(end+1) = Node(strip(tagData));
+            %obj = obj.Append(Node(strip(tagData)));            
         end
 
         function obj = EndExpression(obj)
@@ -120,7 +128,8 @@ classdef XMLParser
                 return
             end
             
-            obj = obj.Append(Node(strip(obj.expr)));
+            obj.nodes(end+1) = Node(strip(obj.expr));
+            % obj = obj.Append(Node(strip(obj.expr)));
             obj.expr = blanks(XMLParser.TOKEN_MAX_LENGTH);
             obj.exprIndex = 1;
         end
@@ -140,7 +149,14 @@ classdef XMLParser
                 obj.currentChar = obj.chars(obj.index);
             end
         end
-
+        
+        % Whilst good architecture in conventional languages
+        % using an append function like this resulted in a speed
+        % decrease of 6000%. This is curious, so I left the code here.
+        % I believe this is due to matlabs first class object
+        % implementation. Something about this code results in the array
+        % obj.nodes being copied in memory to a new adress every time this
+        % was called, which was about 15,000 times
         function obj = Append(obj, node)
             obj.nodes(end + 1) = node;
         end
@@ -171,6 +187,16 @@ classdef XMLParser
                         node =obj.nodes(i+1);
                         number = str2double(node.Name);
                         list(end+1) = number;
+                    end
+                end
+            elseif strcmp(method, XMLParser.COORDINATE_HANDLING_METHOD)
+                for i = 1:length(obj.nodes)
+                    if strcmp(obj.nodes(i).Name,'trkpt lat= lon=')
+                        latNode = obj.nodes(i-2);
+                        longNode = obj.nodes(i-1);
+                        lat = str2double(latNode.Name);
+                        long = str2double(longNode.Name);
+                        list(end+1) = lat;
                     end
                 end
             end
