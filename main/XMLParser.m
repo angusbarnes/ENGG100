@@ -24,13 +24,9 @@ classdef XMLParser
         chars
         index {mustBeNumeric} = 0
         EOF {mustBeNumeric}
-        
         expr = blanks(XMLParser.TOKEN_MAX_LENGTH)
         exprIndex = 1
-
-        nodeIndex = 1
-
-        
+        nodeIndex = 1  
     end
 
     properties (Constant)
@@ -53,6 +49,8 @@ classdef XMLParser
     end
 
     methods
+
+        % This is the object contructor
         function obj = XMLParser(filename)
             obj.filename = filename;
         end
@@ -87,7 +85,6 @@ classdef XMLParser
                 if obj.currentChar == '<'
                     obj = obj.EndExpression();
                     obj = obj.CollectNode('>');
-%                     disp(str(obj.collectedNode))
                 elseif obj.currentChar ~= ""
                     obj.expr(obj.exprIndex) = obj.currentChar;
                     obj.exprIndex = obj.exprIndex + 1;
@@ -134,8 +131,7 @@ classdef XMLParser
                 obj.dataCount = obj.dataCount + 1;
             end
 
-            obj.nodes(end+1) = Node(value);
-            %obj = obj.Append(Node(strip(tagData)));            
+            obj.nodes(end+1) = Node(value);            
         end
 
         function obj = EndExpression(obj)
@@ -145,7 +141,6 @@ classdef XMLParser
             end
             
             obj.nodes(end+1) = Node(strip(obj.expr));
-            % obj = obj.Append(Node(strip(obj.expr)));
             obj.expr = blanks(XMLParser.TOKEN_MAX_LENGTH);
             obj.exprIndex = 1;
         end
@@ -189,14 +184,15 @@ classdef XMLParser
         function list = filter(obj, name, method)
             list = [];
             
-
             if method == XMLParser.TIME_HANDLING_METHOD
                 epoch = -1;
                 epochDay = -1;
                 list = zeros(obj.dataCount, 1);
                 listIndex = 1;
+                
                 for i = 1:length(obj.nodes)
                     if strcmp(obj.nodes(i).Name,'time')
+                        
                         node =obj.nodes(i+1);
                         day = str2double(node.Name(9:10));
                         hours = str2double(node.Name(12:13));
@@ -211,8 +207,11 @@ classdef XMLParser
                         % Handle edge case where UTC date changes mid-ride
                         if epochDay == -1
                             epochDay = day;
-                            continue % We do not want to record the first time
-                                     % Skip the rest of the loop
+                            
+                            % We do not want to record the first time as
+                            % this is the reference time
+                            % Skip the rest of the loop
+                            continue 
                         elseif epochDay ~= day
                             epochDay = day;
                             epoch = epoch - 86400;
@@ -224,16 +223,6 @@ classdef XMLParser
                 end
                 return
             end
-
-
-%             if obj.dataCount == -1
-%                 count = 0;
-%                 for i = 1:length(obj.nodes)
-%                     if strcmp(obj.nodes(i).Name, 'time')
-%                         count = count + 1;
-%                     end
-%                 end
-%             end
 
             if method == XMLParser.NUMERICAL_HANDLING_METHOD
                 list = zeros(obj.dataCount, 1);
@@ -249,6 +238,7 @@ classdef XMLParser
             elseif method == XMLParser.COORDINATE_HANDLING_METHOD
                 list = zeros(obj.dataCount, 2);
                 listIndex = 1;
+                
                 for i = 1:length(obj.nodes)
                     if strcmp(obj.nodes(i).Name,'trkpt lat= lon=')
                         latNode = obj.nodes(i-2);

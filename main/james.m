@@ -1,7 +1,7 @@
 % This file is assigned to: James
 % This code does..... FILL IN DESCRIPTION HERE
 
-data = get_data_from_file('data_sample.gpx');
+data = get_data_from_file('data_sample_1.gpx');
 
 
 % LEAVE THESE AT THE BOTTOM OF YOUR FILE
