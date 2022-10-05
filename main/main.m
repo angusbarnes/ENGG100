@@ -28,3 +28,5 @@ coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD))
 master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
+
+disp(get_times(master_table))
