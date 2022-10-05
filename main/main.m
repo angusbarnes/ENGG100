@@ -4,30 +4,33 @@
 % other external files
 persistantDataPath = pwd + "\..\data\";
 %filename = persistantDataPath + input('Data File Name');
-tic
-test = XMLParser('data_sample_1.gpx');
-result = test.Parse();
-
-nodes = result.nodes;
-
-% for i = 1:length(nodes)
-%     value = nodes(i).Name;
-%     if strcmp(value, "time")
-%         disp(str(nodes(i+1)))
-%     elseif strcmp(value, "ele")
-%         disp(str(nodes(i+1)))
-%     elseif strcmp(value, "trkseg")
-%         disp(str(nodes(i+1)))
-%     end
-% end
+gpxParser = XMLParser('data_sample_2.gpx');
+results = gpxParser.Parse();
 
 % Get time in seconds since hourly UTC Epoch
-% This will not handle time changes between days correctly
-times = result.filter('time', XMLParser.TIME_HANDLING_METHOD);
+% This would not handle rides that exceed 24 hours in length.
+% The first time is read from the metadata tag of the GPX file
+% This function returns all results as time elapsed in seconds since
+% that reference point.
+% Because of how GPS technologies tend to 'stabilise' as connected duration
+% increases, the initial time stamps may have repeated times
+
+disp(results.dataCount)
+master_table = zeros(results.dataCount, 6);
+
+times = results.filter('time', XMLParser.TIME_HANDLING_METHOD);
 
 % Get elevations in meters above see level
-elevations = result.filter('ele', XMLParser.NUMERICAL_HANDLING_METHOD);
+% The generic NUMERICAL HANDLING METHOD will attempt to parse any number
+% stored inside the request tag name
+elevations = results.filter('ele', XMLParser.NUMERICAL_HANDLING_METHOD);
 
-coords = result.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD);
+coords = results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD);
 
-disp(coords)
+master_table(:,1) = times;
+master_table(:,2:3) = coords;
+master_table(:,4) = elevations;
+
+hm = convert(master_table(:,2), master_table(:,3));
+
+plot(times, elevations)

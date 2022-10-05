@@ -12,6 +12,7 @@ classdef XMLParser
     properties
         filename
         nodes = [Node("ROOT")]
+        dataCount = 0;
     end
 
     % For some reason exposing properties publicly slowed the program
@@ -20,7 +21,6 @@ classdef XMLParser
     % children
     properties (Access = protected)
         currentChar char
-        collectedNode Node
         chars
         index {mustBeNumeric} = 0
         EOF {mustBeNumeric}
@@ -29,14 +29,27 @@ classdef XMLParser
         exprIndex = 1
 
         nodeIndex = 1
+
+        
     end
 
     properties (Constant)
-        TOKEN_MAX_LENGTH = 2000;
-        TIME_HANDLING_METHOD = 'TIME_FORMAT';
-        COORDINATE_HANDLING_METHOD = 'COORD';
-        NUMERICAL_HANDLING_METHOD = 'NUMBER';
-        DO_NOT_FORMAT = 'NULL_FORMAT';
+
+        % Whilst this is an abitrary constant, changing it will require a
+        % MATLAB program restart or else the program will hang indefinitely. 
+        % There is some strange behaviour in MATLAB and how it handles 
+        % compile time caching which I believe is the cause of this issue. 
+        % 900-1500 is the best performance range for this value
+        TOKEN_MAX_LENGTH = 900;
+
+        % Normally magic constants are bad
+        % These simply operate as an options enum and are faster
+        % than using matlabs built in enum type, which is slow due to
+        % object insantiation costs
+        TIME_HANDLING_METHOD = 0x33;
+        COORDINATE_HANDLING_METHOD = 0x42;
+        NUMERICAL_HANDLING_METHOD = 0x86;
+        DO_NOT_FORMAT = 0xFF;
     end
 
     methods
@@ -54,7 +67,6 @@ classdef XMLParser
             % Soft error on invalid Fid and return a null node
             if fileHandle == -1
                 disp('Invalid File Name Provided To Parser')
-                tree = {};
                 return
             end
             
@@ -116,9 +128,13 @@ classdef XMLParser
             % The Pre-allocation causes trailing whitespace
             % strip() removes this in order to simplify
             % downfield processing and reduce RAM load
-            obj.collectedNode = Node(strip(tagData));
+            value = strip(tagData);
             
-            obj.nodes(end+1) = Node(strip(tagData));
+            if strcmp(value,'trkpt lat= lon=')
+                obj.dataCount = obj.dataCount + 1;
+            end
+
+            obj.nodes(end+1) = Node(value);
             %obj = obj.Append(Node(strip(tagData)));            
         end
 
@@ -172,31 +188,75 @@ classdef XMLParser
         % limitations of MATLAB, it will be sufficient for our usecase
         function list = filter(obj, name, method)
             list = [];
-            if strcmp(method, XMLParser.TIME_HANDLING_METHOD)
+            
+
+            if method == XMLParser.TIME_HANDLING_METHOD
+                epoch = -1;
+                epochDay = -1;
+                list = zeros(obj.dataCount, 1);
+                listIndex = 1;
                 for i = 1:length(obj.nodes)
                     if strcmp(obj.nodes(i).Name,'time')
                         node =obj.nodes(i+1);
+                        day = str2double(node.Name(9:10));
+                        hours = str2double(node.Name(12:13));
                         minutes = str2double(node.Name(15:16));
                         seconds = str2double(node.Name(18:19));
-                        list(end+1) = minutes*60 + seconds;
-                    end
+                        time = (hours * 60 + minutes)*60 + seconds;
+                        
+                        if epoch == -1
+                            epoch = time;
+                        end
+                        
+                        % Handle edge case where UTC date changes mid-ride
+                        if epochDay == -1
+                            epochDay = day;
+                            continue % We do not want to record the first time
+                                     % Skip the rest of the loop
+                        elseif epochDay ~= day
+                            epochDay = day;
+                            epoch = epoch - 86400;
+                        end
+                  
+                        list(listIndex) = time-epoch;
+                        listIndex = listIndex + 1;
+                     end
                 end
-            elseif strcmp(method, XMLParser.NUMERICAL_HANDLING_METHOD)
+                return
+            end
+
+
+%             if obj.dataCount == -1
+%                 count = 0;
+%                 for i = 1:length(obj.nodes)
+%                     if strcmp(obj.nodes(i).Name, 'time')
+%                         count = count + 1;
+%                     end
+%                 end
+%             end
+
+            if method == XMLParser.NUMERICAL_HANDLING_METHOD
+                list = zeros(obj.dataCount, 1);
+                listIndex = 1;
                 for i = 1:length(obj.nodes)
-                    if strcmp(obj.nodes(i).Name,'ele')
+                    if strcmp(obj.nodes(i).Name,name)
                         node =obj.nodes(i+1);
                         number = str2double(node.Name);
-                        list(end+1) = number;
+                        list(listIndex) = number;
+                        listIndex = listIndex + 1;
                     end
                 end
-            elseif strcmp(method, XMLParser.COORDINATE_HANDLING_METHOD)
+            elseif method == XMLParser.COORDINATE_HANDLING_METHOD
+                list = zeros(obj.dataCount, 2);
+                listIndex = 1;
                 for i = 1:length(obj.nodes)
                     if strcmp(obj.nodes(i).Name,'trkpt lat= lon=')
                         latNode = obj.nodes(i-2);
                         longNode = obj.nodes(i-1);
                         lat = str2double(latNode.Name);
                         long = str2double(longNode.Name);
-                        list(end+1) = lat;
+                        list(listIndex, :) = [lat, long];
+                        listIndex = listIndex + 1;
                     end
                 end
             end
