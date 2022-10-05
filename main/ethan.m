@@ -4,7 +4,7 @@
 % data is a matrix of all data
 % There are 6 columns, only the first 4 are important
 % The columns (in order) contain:
-% Time (seconds) | Northing | Easting | Elevation (m)
+% Time (seconds) | Northing (y) | Easting (x) | Elevation (m)
 
 data = get_data_from_file('data_sample_1.gpx');
 
