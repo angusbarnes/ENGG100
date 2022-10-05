@@ -2,7 +2,7 @@
 % We are allowed up to 10 LOC for this file
 % This ensures we split code effectively between
 % other external files
-persistantDataPath = pwd + "\..\data\";
+
 %filename = persistantDataPath + input('Data File Name');
 gpxParser = XMLParser('data_sample_2.gpx');
 results = gpxParser.Parse();
@@ -14,8 +14,6 @@ results = gpxParser.Parse();
 % that reference point.
 % Because of how GPS technologies tend to 'stabilise' as connected duration
 % increases, the initial time stamps may have repeated times
-
-disp(results.dataCount)
 master_table = zeros(results.dataCount, 6);
 
 times = results.filter('time', XMLParser.TIME_HANDLING_METHOD);
@@ -30,5 +28,3 @@ coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD))
 master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
-
-plot(times, elevations)
