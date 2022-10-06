@@ -2,13 +2,15 @@
 % into a list of northings and eastings coordinates
 %By Hasaan Mohammad Farache
 
-function [north, east] = convert(latitude, longitude)
+function output = convert(coord_pairs)
+    latitude = coord_pairs(:, 1);
+    longitude = coord_pairs(:, 2);
     %the code above calls in the variable latitude, and longitude
     Long_Zone = 31 + floor(longitude ./ 6 );
     %the code above calculates the longitude zone
     Long_Zone_CM = (6 .* Long_Zone) - 183;
     %the code above calculates the longitude zone
-    format long;
+%     format long;
     %the code above changes the format into long, so more numbers appear
     Delta_Long = (longitude - Long_Zone_CM) .* (3600 / 10000);
     %the code above calculates the delta longitude
@@ -37,7 +39,7 @@ function [north, east] = convert(latitude, longitude)
     %the code above declares constants
 
     Meridional_Arc_S = A0 .* Lat_Rad - B0 .* sin(2 .* Lat_Rad) + C0 .* sin(4 .* Lat_Rad) - D0 .* sin(6 .* Lat_Rad) + E0 .* sin(8 .* Lat_Rad);
-    %the code above calculates the meridonal arc
+    %the code above calculates the meridional arc
 
     k0 = 0.9996;
     %the code above declares a constant
@@ -69,8 +71,8 @@ function [north, east] = convert(latitude, longitude)
     add_north = Raw_Northing + 10000000;
     %the code above declares a variable
 
-    northing = add_north(Raw_Northing < 0);
-    northing = Raw_Northing(Raw_Northing >= 0);
+    northing = add_north .* (Raw_Northing < 0);
+    northing = northing + Raw_Northing .* (Raw_Northing >= 0);
     %the code above calculates northing
     % adds 100000000 if raw northing is smaller than 0
 
@@ -78,7 +80,8 @@ function [north, east] = convert(latitude, longitude)
     %the code above calculates the easting by using the previously
     %calculated variables
 
-    north = northing;
-    east = easting;
+    output = zeros(length(latitude), 2);
+    output(:, 1) = northing;
+    output(:,2) = easting;
     %the code above declares the output
 end
