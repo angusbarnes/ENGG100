@@ -1,25 +1,48 @@
 % This file is assigned to: Hasaan
-% This code does..... FILL IN DESCRIPTION HERE
+% This code does the plotting for the Velocity (Km/h) vs time (h)
 
-% data is a matrix of all data
-% There are 6 columns, only the first 4 are important
-% The columns (in order) contain:
-% Time (seconds) | Northing | Easting | Elevation (m)
+function velocity = hasaan(time, easting, northing, elevation)
+    % the code above creates the function for velocity, and gets the input values
+    
+    t = time ./ (60 * 60);
+    % the code above changes time from seconds to hours
 
-data = get_data_from_file('data_sample_1.gpx');
+    % the code above changes m into km
+    
+    x_diff_shifted = shiftdim(easting, 1);
+    x_diff = easting - x_diff_shifted;
+    % the code above subtracts the second value of the array from the first
+    % in which it creates an array with the difference in x distance
 
+    y_diff_shifted = shiftdim(northing, 1);
+    y_diff = northing - y_diff_shifted;
+    % the code above subtracts the second value of the array from the first
+    % in which it creates an array with the difference in y distance
 
-% LEAVE THESE AT THE BOTTOM OF YOUR FILE
-% DONT WORRY ABOUT CHANGING THEM
-function output = get_times(master_table)
-    output = master_table(:, 1);
-end
+    distance_diff = sqrt((y_diff) .^ 2 + (x_diff) .^ 2);
+    % the code above uses hypothesus rule to calculate the distance
+    % between two points
 
-% RETURNS A 2 COLUMN LIST OF Northing | Easting pairs
-function output = get_coords(master_table)
-    output = master_table(:, 2:3);
-end
+    ele_diff_shifted = shiftdim(elevation, 1);
+    ele_diff = elevation - ele_diff_shifted;
+    % the code above subtracts the second value of the array from the first
+    % in which it creates an array with the difference in elevation
 
-function output = get_elevations(master_table)
-    output = master_table(:, 4);
+    total_dist = sqrt((distance_diff) .^ 2 + (ele_diff) .^ 2);
+    % the code above calculates the total distance between each point
+    % including the elevation in calculation
+
+    velocity = total_dist ./ t;
+    % the code above calculates the velocity
+    % which is the distance divided by time
+
+    velocity(length(elevation)) = 0;
+    velocity = shiftdim(velocity, -1);
+    % the code above makes the last value of velocity equal to 0
+    % this is because shiftdim shifts the whole array
+    % meaning that our first value got subtracted from the last value twice
+
+    plot(velocity, t), title('Plot of Velocity (Km/h) as function of time (h)'), xlabe('time (h)'), ylabel('velocity (km/h)');
+    % the code above plots the graph
+
 end

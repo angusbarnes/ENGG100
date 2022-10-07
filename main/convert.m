@@ -82,6 +82,6 @@ function output = convert(coord_pairs)
 
     output = zeros(length(latitude), 2);
     output(:, 1) = northing;
-    output(:,2) = easting;
+    output(:, 2) = easting;
     %the code above declares the output
 end
