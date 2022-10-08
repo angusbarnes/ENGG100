@@ -1,9 +1,14 @@
 % This file is assigned to: Hasaan
 % This code does the plotting for the Velocity (Km/h) vs time (h)
 
-function velocity = hasaan(time, easting, northing, elevation)
+function output = hasaan(data)
     % the code above creates the function for velocity, and gets the input values
-    
+   disp("hi");
+   time = data(:, 1);
+   easting = data(:, 3);
+   northing = data(:, 2);
+   elevation = data(:, 4);
+
     t = time ./ (60 * 60);
     % the code above changes time from seconds to hours
 
@@ -32,17 +37,17 @@ function velocity = hasaan(time, easting, northing, elevation)
     % the code above calculates the total distance between each point
     % including the elevation in calculation
 
-    velocity = total_dist ./ t;
+    output = total_dist ./ t;
     % the code above calculates the velocity
     % which is the distance divided by time
 
-    velocity(length(elevation)) = 0;
-    velocity = shiftdim(velocity, -1);
+    output(length(elevation)) = 0;
+    output = shiftdim(output, -1);
     % the code above makes the last value of velocity equal to 0
     % this is because shiftdim shifts the whole array
     % meaning that our first value got subtracted from the last value twice
 
-    plot(velocity, t), title('Plot of Velocity (Km/h) as function of time (h)'), xlabe('time (h)'), ylabel('velocity (km/h)');
+    plot(output, t), title('Plot of Velocity (Km/h) as function of time (h)'), xlabe('time (h)'), ylabel('velocity (km/h)');
     % the code above plots the graph
-
+    
 end
