@@ -11,8 +11,6 @@ function velocity = hasaan(data1)
 
     t = time ./ (60 * 60);
     % the code above changes time from seconds to hours
-
-    % the code above changes m into km
     
     x_diff_shifted = circshift(easting,-1);
     x_diff = easting - x_diff_shifted;
