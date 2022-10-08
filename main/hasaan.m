@@ -36,7 +36,10 @@ function velocity = hasaan(data1)
     total_dist = sqrt((distance_diff) .^ 2 + (ele_diff) .^ 2);
     % the code above calculates the total distance between each point
     % including the elevation in calculation
-
+    
+    total_dist = total_dist ./ 1000;
+    %the above code changes distance from m to km
+    
     velocity = total_dist ./ t;
     % the code above calculates the velocity
     % which is the distance divided by time
