@@ -19,7 +19,6 @@ function table = get_data_from_file(filename)
     elevations = results.filter('ele', XMLParser.NUMERICAL_HANDLING_METHOD);
     
     coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD));
-    
     master_table(:,1) = times;
     master_table(:,2:3) = coords;
     master_table(:,4) = elevations;
