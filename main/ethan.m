@@ -1,12 +1,17 @@
 % This file is assigned to: Ethan
-% This code does..... FILL IN DESCRIPTION HERE
+% This code creates two plots on one graph
+% Create plot for elevation over time and elevation grade over time
 
 % data is a matrix of all data
 % There are 6 columns, only the first 4 are important
 % The columns (in order) contain:
-% Time (seconds) | Northing (y) | Easting (x) | Elevation (m)
+% Time (seconds) | Northing,(lat) (y) | Easting,(long) (x) | Elevation (m)
 
 data = get_data_from_file('data_sample_1.gpx');
+
+x1 = data(:,1);
+y1 = data(:,2);
+
 
 
 % LEAVE THESE AT THE BOTTOM OF YOUR FILE
