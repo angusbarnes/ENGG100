@@ -11,6 +11,18 @@ data = get_data_from_file('data_sample_1.gpx');
 
 x1 = data(:,1);
 y1 = data(:,2);
+% this is for the first part
+
+Time = data(:,1);
+North = data(:,2);
+East = data(:,3);
+elevation = data(:,4);
+
+for i = 1:(North)
+    for j = 1:(East)
+distance = cumsum(sqrt( diff(East).^2+diff(North).^2));
+    end
+end
 
 
 
