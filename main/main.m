@@ -4,7 +4,7 @@
 % other external files
 
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_2.gpx');
+gpxParser = XMLParser('data_sample_1.gpx');
 results = gpxParser.Parse();
 
 % Get time in seconds since hourly UTC Epoch
@@ -28,3 +28,15 @@ coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD))
 master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
+
+velocity(master_table)
+f = gcf;
+exportgraphics(f,'barchart.png','Resolution',300)
+
+save_plot(@()velocity(master_table), "testexport.png")
+
+function save_plot(func, filename)
+    func()
+    f = gcf;
+    exportgraphics(f,filename,'Resolution',300)
+end

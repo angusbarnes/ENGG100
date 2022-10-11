@@ -7,6 +7,9 @@
 % Time (seconds) | Northing (y) | Easting (x) | Elevation (m)
 
 data = get_data_from_file('data_sample_1.gpx');
+times = get_times(data);
+coords = get_coords(data);
+elevations = get_elevations(data);
 
 
 % LEAVE THESE AT THE BOTTOM OF YOUR FILE
