@@ -30,3 +30,13 @@ master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
 
 velocity(master_table)
+f = gcf;
+exportgraphics(f,'barchart.png','Resolution',300)
+
+save_plot(@()velocity(master_table), "testexport.png")
+
+function save_plot(func, filename)
+    func()
+    f = gcf;
+    exportgraphics(f,filename,'Resolution',300)
+end
