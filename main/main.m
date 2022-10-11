@@ -4,7 +4,7 @@
 % other external files
 
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_2.gpx');
+gpxParser = XMLParser('data_sample_1.gpx');
 results = gpxParser.Parse();
 
 % Get time in seconds since hourly UTC Epoch
@@ -28,3 +28,5 @@ coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD))
 master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
+
+velocity(master_table)

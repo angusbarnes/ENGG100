@@ -1,7 +1,7 @@
 % This file is assigned to: Hasaan
 % This code does the plotting for the Velocity (Km/h) vs time (h)
 
-function velocity = hasaan(data1)
+function velocity = velocity(data1)
     % the code above creates the function for velocity, and gets the input values
 
    time = data1(:, 1);
