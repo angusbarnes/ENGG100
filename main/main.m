@@ -29,14 +29,33 @@ master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
 
-velocity(master_table)
-f = gcf;
-exportgraphics(f,'barchart.png','Resolution',300)
+previous_time = -1;
+output_table = zeros(size(master_table));
+insertIndex = 0;
+for row = 1:length(master_table)
+    time = master_table(row, 1);
+    
+         
+    if time > previous_time
+        insertIndex = insertIndex+1;
+        previous_time = time;
+    elseif time < previous_time
+        disp("There is a notable data consistency issue.")
+        disp("The provided file contains timestamps that go backwards in time")
+    end
 
-save_plot(@()velocity(master_table), "testexport.png")
+    output_table(insertIndex,:) = master_table(row, :);
+end
+
+% Truncate the the filtered table to remove trailing zeros made with
+% pre-allocation
+output_table = output_table(1:insertIndex, :);
+
+
+save_plot(@()velocity(output_table), "testexport.png");
 
 function save_plot(func, filename)
-    func()
-    f = gcf;
-    exportgraphics(f,filename,'Resolution',300)
+    func(); % Invoke the plotting function passed by the function handle 'func'
+    f = gcf; % Get access to the current graphics handle
+    exportgraphics(f,filename,'Resolution',300); % save the graphics to a file
 end
