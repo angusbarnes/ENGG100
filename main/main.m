@@ -4,7 +4,7 @@
 % other external files
 
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_1.gpx');
+gpxParser = XMLParser('data_sample_2.gpx');
 results = gpxParser.Parse();
 
 % Get time in seconds since hourly UTC Epoch
@@ -52,7 +52,7 @@ end
 output_table = output_table(1:insertIndex, :);
 
 
-save_plot(@()velocity(output_table), "testexport.png");
+%save_plot(@()velocity(output_table), "testexport.png");
 
 function save_plot(func, filename)
     func(); % Invoke the plotting function passed by the function handle 'func'
