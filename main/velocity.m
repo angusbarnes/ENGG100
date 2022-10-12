@@ -9,8 +9,8 @@ function velocity = velocity(data1)
    northing = data1(:, 2);
    elevation = data1(:, 4);
 
-    t = time ./ (60 * 60);
-    % the code above changes time from seconds to hours
+    t = time ./ 3600;
+    % the code above changes time from seconds to hours (as a decimal)
     
     x_diff_shifted = circshift(easting,-1);
     x_diff = easting - x_diff_shifted;
@@ -38,17 +38,20 @@ function velocity = velocity(data1)
     total_dist = total_dist ./ 1000;
     %the above code changes distance from m to km
     
-    velocity = total_dist ./ t;
+    velocity = cumsum(total_dist) ./ t;
     % the code above calculates the velocity
     % which is the distance divided by time
+
+    disp(sum(total_dist))
+    disp(t(end))
 
     velocity(length(elevation)) = 0;
     velocity = circshift(velocity, 1);
     % the code above makes the last value of velocity equal to 0
     % this is because shiftdim shifts the whole array
     % meaning that our first value got subtracted from the last value twice
+    
 
     plot(t, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('time (h)'), ylabel('velocity (km/h)');
-    %the code above plots the graph
-    
+    %the code above plots the graph  
 end
