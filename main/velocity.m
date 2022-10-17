@@ -11,6 +11,9 @@ function velocity = velocity(data1)
 
     t = time ./ 3600;
     % the code above changes time from seconds to hours (as a decimal)
+
+    t1 = t;
+    %create a copy of time;
     
     x_shifted = circshift(easting,-1);
     x_diff = easting - x_shifted;
@@ -53,7 +56,7 @@ function velocity = velocity(data1)
     total_dist = total_dist ./ 1000;
     % the above code changes distance from m to km
     
-    t = (t + circshift(t,-1)) ./ 2;
+    t = (circshift(t,-1) - t);
     % the code above gets the average time
     % the reason why average time is used instead of time
     % is that there is 1 less cell in distance than time
@@ -61,6 +64,7 @@ function velocity = velocity(data1)
     % not the time for each point (distance represent 2 points)
 
     t = t(1:(end-1));
+    t1 = t1(1:(end-1));
     % the code above removes the last column from the matrix
     % the reason for doing so is that when you subtract a - b
     % you end up with one value instead of the original 2
@@ -71,7 +75,7 @@ function velocity = velocity(data1)
     % the code above calculates the velocity
     % which is the distance divided by time
     
-    plot(t, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('time (h)'), ylabel('velocity (km/h)');
+    plot(t1, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('time (h)'), ylabel('velocity (km/h)'),;
     % the code above plots the graph  
 
     velocity1 = (1:length(velocity)+1);
