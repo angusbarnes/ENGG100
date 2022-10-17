@@ -38,12 +38,9 @@ function velocity = velocity(data1)
     total_dist = total_dist ./ 1000;
     %the above code changes distance from m to km
     
-    velocity = cumsum(total_dist) ./ t;
+    velocity = total_dist ./ t;
     % the code above calculates the velocity
     % which is the distance divided by time
-
-    disp(sum(total_dist))
-    disp(t(end))
 
     velocity(length(elevation)) = 0;
     velocity = circshift(velocity, 1);
@@ -51,7 +48,7 @@ function velocity = velocity(data1)
     % this is because shiftdim shifts the whole array
     % meaning that our first value got subtracted from the last value twice
     
-
+    disp(total_dist)
     plot(t, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('time (h)'), ylabel('velocity (km/h)');
     %the code above plots the graph  
 end

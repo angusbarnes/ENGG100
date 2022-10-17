@@ -4,8 +4,10 @@
 % other external files
 
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_1.gpx');
+gpxParser = XMLParser('data_sample_3.gpx');
 results = gpxParser.Parse();
+
+% Ethan is sample 1?
 
 % Get time in seconds since hourly UTC Epoch
 % This would not handle rides that exceed 24 hours in length.
@@ -51,7 +53,8 @@ end
 % pre-allocation
 output_table = output_table(1:insertIndex, :);
 
-
+test = interval_distance(output_table);
+disp((sum(test)/2))
 save_plot(@()velocity(output_table), "testexport.png");
 
 function save_plot(func, filename)
