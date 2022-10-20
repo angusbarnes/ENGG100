@@ -4,8 +4,10 @@
 % other external files
 
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_2.gpx');
+gpxParser = XMLParser('data_sample_3.gpx');
 results = gpxParser.Parse();
+
+% Ethan is sample 1?
 
 % Get time in seconds since hourly UTC Epoch
 % This would not handle rides that exceed 24 hours in length.
@@ -28,3 +30,35 @@ coords = convert(results.filter('coords', XMLParser.COORDINATE_HANDLING_METHOD))
 master_table(:,1) = times;
 master_table(:,2:3) = coords;
 master_table(:,4) = elevations;
+
+previous_time = -1;
+output_table = zeros(size(master_table));
+insertIndex = 0;
+for row = 1:length(master_table)
+    time = master_table(row, 1);
+    
+         
+    if time > previous_time
+        insertIndex = insertIndex+1;
+        previous_time = time;
+    elseif time < previous_time
+        disp("There is a notable data consistency issue.")
+        disp("The provided file contains timestamps that go backwards in time")
+    end
+
+    output_table(insertIndex,:) = master_table(row, :);
+end
+
+% Truncate the the filtered table to remove trailing zeros made with
+% pre-allocation
+output_table = output_table(1:insertIndex, :);
+
+test = interval_distance(output_table);
+disp((sum(test)/2))
+save_plot(@()velocity(output_table), "testexport.png");
+
+function save_plot(func, filename)
+    func(); % Invoke the plotting function passed by the function handle 'func'
+    f = gcf; % Get access to the current graphics handle
+    exportgraphics(f,filename,'Resolution',300); % save the graphics to a file
+end

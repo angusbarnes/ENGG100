@@ -72,10 +72,18 @@ classdef XMLParser
             obj.chars = fread(fileHandle);
             obj.EOF = length(obj.chars);
             
-            % We must advance the read head to the first character
-            % before looping
-            obj = obj.Advance(); 
-            
+            % This is an obj.Advance() call. Because MATLAB is so
+            % poorly implemented to handle procedural programing
+            % however. It is not performance friendly to call
+            % functions at high frequency (in this case 100,000+
+            % times). Instead I just copy pasted obj.Advance
+            % locally everywhere it is needed
+            obj.index = obj.index + 1;
+            if ~(obj.index > obj.EOF)
+                obj.currentChar = obj.chars(obj.index);
+            end
+
+
             % Like most things, MATLAB has a very poor implementation 
             % of class objects. Some instance reassignment is required
             % to self reference class values internally. We cannot
@@ -89,7 +97,11 @@ classdef XMLParser
                     obj.expr(obj.exprIndex) = obj.currentChar;
                     obj.exprIndex = obj.exprIndex + 1;
                 end
-                obj = obj.Advance();
+                
+                obj.index = obj.index + 1;
+                if ~(obj.index > obj.EOF)
+                    obj.currentChar = obj.chars(obj.index);
+                end
             end
         end
 
@@ -102,8 +114,11 @@ classdef XMLParser
             % limit issues on modern machines
             % Measured speed improvement of ~200%
             tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
-
-            obj = obj.Advance(); % Skip opening delimeter
+            
+            obj.index = obj.index + 1;
+            if ~(obj.index > obj.EOF)
+                obj.currentChar = obj.chars(obj.index);
+            end
             
             i = 1;
             while obj.currentChar ~= delimiter
@@ -114,11 +129,20 @@ classdef XMLParser
                 % and insert them as new nodes in the output
                  if obj.currentChar == '"'
                     obj = obj.CollectNode('"');
-                    obj = obj.Advance();
+                    
+                    obj.index = obj.index + 1;
+                    if ~(obj.index > obj.EOF)
+                        obj.currentChar = obj.chars(obj.index);
+                    end
                  else
                     tagData(i) = obj.currentChar; 
                     i = i + 1;
-                    obj = obj.Advance();
+                    
+                    % This is an obj.Advance() Call
+                    obj.index = obj.index + 1;
+                    if ~(obj.index > obj.EOF)
+                        obj.currentChar = obj.chars(obj.index);
+                    end
                  end
             end
 
@@ -145,37 +169,30 @@ classdef XMLParser
             obj.exprIndex = 1;
         end
         
-        % MATLAB's hair brained syntax makes this look weird
-        % This simply modifies this objects index value in-place
-        function obj = SetIndexToEnd(obj)
-            obj.index = obj.EOF + 1;
-        end
-
+        % This function was used intenally to advance the read head
+        % In the production ready code this was removed. It turns out that
+        % MATLAB's refusal to implement zero-cost abstractions was costing
+        % performance dearly. Calling this function turned out to be 40%
+        % slower in runtime than when the code inside it was copy pasted
+        % over the top of everywhere it was called. This makes the code far
+        % messier and harder to read, but drastically improved performance
         function obj = Advance(obj)
             obj.index = obj.index + 1;
-
-            if obj.index > obj.EOF
-                obj.currentChar = -1;
-            else
+            if ~(obj.index > obj.EOF)
                 obj.currentChar = obj.chars(obj.index);
             end
         end
         
-        % Whilst good architecture in conventional languages
+        % Whilst it is considererd good architecture in conventional languages
         % using an append function like this resulted in a speed
         % decrease of 6000%. This is curious, so I left the code here.
         % I believe this is due to matlabs first class object
         % implementation. Something about this code results in the array
         % obj.nodes being copied in memory to a new adress every time this
-        % was called, which was about 15,000 times
+        % was called, which was about 15,000 times. This is a classic sign
+        % of lazy compiler design
         function obj = Append(obj, node)
             obj.nodes(end + 1) = node;
-        end
-
-        function obj = PrintNodes(obj)
-            for i = 1:length(obj.nodes)
-                disp(str(obj.nodes(i)));
-            end
         end
         
         % Hard coding filter routines is not good architecture for
