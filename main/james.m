@@ -8,11 +8,12 @@
 
 %dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
 
-function vel = james(dataArray)   %Generate function and input the array to pull from
-    ti = dataArray(: ,1);           %Put all time values into their own array for ease of use
-    No = dataArray(: ,2);           s%Put all Northing values into their own array for ease of use
-    Ea = dataArray(: ,3);           %Put all Easting values into their own array for ease of use
-    El = dataArray(: ,4);           %Put all Elevation values into their own array for ease of use
+function vel = test(dataArray)   %Generate function and input the array to pull from
+    dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
+    ti = dataArray(1:1027,1);           %Put all time values into their own array for ease of use
+    No = dataArray(1:1027,2);           %Put all Northing values into their own array for ease of use
+    Ea = dataArray(1:1027,3);           %Put all Easting values into their own array for ease of use
+    El = dataArray(1:1027,4);           %Put all Elevation values into their own array for ease of use
     
     tiHours = (ti) ./ (3600);  %Convert seconds to hours for km/h notation
 
@@ -25,17 +26,18 @@ function vel = james(dataArray)   %Generate function and input the array to pull
     ElShifted = circshift(El, -1);    %Using Circshift function, create a new array by shifting every value in Elevation to the left by one. This will allow for easy difference calculations, and a circular shift will wrap the first value back around.
     ElDifference = El - ElShifted;    %Subtract the two arrays to get a absolute difference between each element
 
-    xyDifference = sqrt((NoDifference ^ 2) + (EaDifference ^ 2));   %Apply RHT Trigonometry to determine the 
-    xyzDifference = (sqrt((xyDifference ^ 2) + (xyzDifference ^ 2))) ./ 1000;  %Same as before, but also converting to km in the same step
+    xyDifference = sqrt((NoDifference .^ 2) + (EaDifference .^ 2));   %Apply RHT Trigonometry to determine the 
+    xyzDifference = (sqrt((xyDifference .^ 2) + (ElDifference .^ 2))) ./ 1000;  %Same as before, but also converting to km in the same step
 
     %for i:length(xyzDifference)
 
-    %%%%%%%%%cuDistance = sum(xyzDifference);   %Sum all values between points to get a total distance
+    cuDistance = cumsum(xyzDifference)   %Sum all values between points to get a total distance
+
 
     vel = xyzDifference ./ tiHours;    %Generate an array of values of the distance between points in three axis and time
     vel(length(Ea)) = 0;        %Make the last value of velocity equal to zero
        
-    %plot(cuDistance, vel), title('Velocity (km/h) over Cumulative Distance (km)'), xlabel('Cumulative Distance (km)'), ylabel('Velocity (km/h)');
+    plot(cuDistance, vel), title('Velocity (km/h) over Cumulative Distance (km)'), xlabel('Cumulative Distance (km)'), ylabel('Velocity (km/h)');
 
 end
 
