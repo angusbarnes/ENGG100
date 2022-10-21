@@ -6,9 +6,35 @@
 % The columns (in order) contain:
 % Time (seconds) | Northing (y) | Easting (x) | Elevation (m)
 
-data = get_data_from_file('data_sample_1.gpx');
+%dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
 
 
+function A = angusn(dataArray)   %Generate function and input the array to pull from
+    dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
+    ti = dataArray(1:1027,1);           %Put all time values into their own array for ease of use
+    No = dataArray(1:1027,2);           %Put all Northing values into their own array for ease of use
+    Ea = dataArray(1:1027,3);           %Put all Easting values into their own array for ease of use
+    El = dataArray(1:1027,4);           %Put all Elevation values into their own array for ease of use
+    
+
+    EaShift = circshift(Ea, -1);    %Using Circshift function, create a new array by shifting every value in Eastings to the left by one. This will allow for easy difference calculations, and a circular shift will wrap the first value back around.
+    EaDiff = Ea - EaShift -150.8973540;    %Subtract the two arrays to get a absolute difference between each element
+
+    NoShift = circshift(No, -1);    %Using Circshift function, create a new array by shifting every value in Northings to the left by one. This will allow for easy difference calculations, and a circular shift will wrap the first value back around.
+    NoDiff = No - NoShift +34.4174800;    %Subtract the two arrays to get a absolute difference between each element
+    
+    ElShift = circshift(El, -1);    %Using Circshift function, create a new array by shifting every value in Elevation to the left by one. This will allow for easy difference calculations, and a circular shift will wrap the first value back around.
+    ElDiff = El - ElShift +43.0;    %Subtract the two arrays to get a absolute difference between each element
+
+ 
+    
+    Easting= EaDiff./ ti;
+    Northing= NoDiff./ ti;
+    Elevation= ElDiff ./ ti;
+       
+    plot3(Easting, Northing, Elevation), title('Easting (km) over Northing(km) over Elevation(m)'), xlabel('Easting (km)'), ylabel('Northing (km)'), zlabel('Elevation (m)');
+
+end
 % LEAVE THESE AT THE BOTTOM OF YOUR FILE
 % DONT WORRY ABOUT CHANGING THEM
 function output = get_times(master_table)
