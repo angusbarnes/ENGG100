@@ -42,13 +42,6 @@ function vel = test(dataArray)   %Generate function and input the array to pull 
 end
 
 
-
-
-
-
-
-
-
 % LEAVE THESE AT THE BOTTOM OF YOUR FILE
 % DONT WORRY ABOUT CHANGING THEM
 %function output = get_times(master_table)
