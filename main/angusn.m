@@ -11,10 +11,10 @@
 
 function A = angusn(dataArray)   %Generate function and input the array to pull from
     dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
-    ti = dataArray(1:1027,1);           %Put all time values into their own array for ease of use
-    No = dataArray(1:1027,2);           %Put all Northing values into their own array for ease of use
-    Ea = dataArray(1:1027,3);           %Put all Easting values into their own array for ease of use
-    El = dataArray(1:1027,4);           %Put all Elevation values into their own array for ease of use
+    ti = dataArray(1:end-1,1);           %Put all time values into their own array for ease of use
+    No = dataArray(1:end-1,2);           %Put all Northing values into their own array for ease of use
+    Ea = dataArray(1:end-1,3);           %Put all Easting values into their own array for ease of use
+    El = dataArray(1:end-1,4);           %Put all Elevation values into their own array for ease of use
     
 
     EaShift = circshift(Ea, -1);    %Using Circshift function, create a new array by shifting every value in Eastings to the left by one. This will allow for easy difference calculations, and a circular shift will wrap the first value back around.
@@ -34,18 +34,4 @@ function A = angusn(dataArray)   %Generate function and input the array to pull 
        
     plot3(Easting, Northing, Elevation), title('Easting (km) over Northing(km) over Elevation(m)'), xlabel('Easting (km)'), ylabel('Northing (km)'), zlabel('Elevation (m)');
 
-end
-% LEAVE THESE AT THE BOTTOM OF YOUR FILE
-% DONT WORRY ABOUT CHANGING THEM
-function output = get_times(master_table)
-    output = master_table(:, 1);
-end
-
-% RETURNS A 2 COLUMN LIST OF Northing | Easting pairs
-function output = get_coords(master_table)
-    output = master_table(:, 2:3);
-end
-
-function output = get_elevations(master_table)
-    output = master_table(:, 4);
 end

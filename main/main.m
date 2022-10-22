@@ -2,9 +2,9 @@
 % We are allowed up to 10 LOC for this file
 % This ensures we split code effectively between
 % other external files
-
+addpath(genpath('helpers'))
 %filename = persistantDataPath + input('Data File Name');
-gpxParser = XMLParser('data_sample_3.gpx');
+gpxParser = XMLParser('data/data_sample_1.gpx');
 results = gpxParser.Parse();
 
 % Ethan is sample 1?
@@ -53,12 +53,14 @@ end
 % pre-allocation
 output_table = output_table(1:insertIndex, :);
 
-test = interval_distance(output_table);
-disp((sum(test)/2))
-save_plot(@()velocity(output_table), "testexport.png");
+distances = interval_distance(output_table, 1);
+times = interval_time(output_table);
+vels = calculate_velocities(output_table);
+cums = cumsum(interval_distance(output_table, true));
+velocity_cumulative_distance(output_table);
 
 function save_plot(func, filename)
     func(); % Invoke the plotting function passed by the function handle 'func'
     f = gcf; % Get access to the current graphics handle
-    exportgraphics(f,filename,'Resolution',300); % save the graphics to a file
+    exportgraphics(f,filename,'Resolution',600); % save the graphics to a file
 end
