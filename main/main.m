@@ -17,7 +17,7 @@ results = gpxParser.Parse();
 
 master_table = create_master_table(results);
 
-velocity_cumulative_distance(master_table);
+elevation_time(master_table);
 
 function save_plot(func, filename)
     func(); % Invoke the plotting function passed by the function handle 'func'
