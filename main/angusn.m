@@ -10,7 +10,7 @@
 
 
 function A = angusn(dataArray)   %Generate function and input the array to pull from
-    dataArray = get_data_from_file('data_sample_1.gpx'); %Get and generate array from stored data
+    dataArray = get_data_from_file('data/data_sample_1.gpx'); %Get and generate array from stored data
     ti = dataArray(1:end-1,1);           %Put all time values into their own array for ease of use
     No = dataArray(1:end-1,2);           %Put all Northing values into their own array for ease of use
     Ea = dataArray(1:end-1,3);           %Put all Easting values into their own array for ease of use
