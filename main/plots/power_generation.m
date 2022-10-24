@@ -20,13 +20,15 @@ function power_generation(data)
     power = (Fa + Fg + Fr) .* (velocities / (1 - 0.045));
     
     hold on
-    plot(data(2:end, 1)/3600, movmean(power,10));
+    plot(data(2:end, 1)/3600, movmean(power,Settings.AggressiveSmooth()));
     
     % Plot a line for power across the whole ride. Since Wattage is a
     % rate, taking an average over the whole data set will give teh wattage
     % for the whole ride
     yline(mean(power), Color=[1 0 0]);
     title("Power Generation of Ride")
-    legend('Instantaneous Power Generation (W)', 'Total Power Generation for Ride (W)')
+    legend('Instantaneous Power Generation (W)', 'Total Power Generation for Ride (W)', Location='southoutside')
+    xlabel("Time (h)")
+    ylabel("Power (W)")
     hold off
 end

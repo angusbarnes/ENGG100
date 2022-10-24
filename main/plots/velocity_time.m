@@ -75,7 +75,7 @@ function velocity = velocity_time(data1)
     % the code above calculates the velocity
     % which is the distance divided by time
     
-    plot(t1, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('time (h)'), ylabel('velocity (km/h)'),;
+    plot(t1, velocity), title('Plot of Velocity (Km/h) as function of time (h)'), xlabel('Time (h)'), ylabel('Velocity (km/h)'),;
     % the code above plots the graph  
 
     velocity1 = (1:length(velocity)+1);

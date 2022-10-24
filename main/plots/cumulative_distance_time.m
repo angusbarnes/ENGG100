@@ -11,4 +11,7 @@ function cumulative_distance_time(data)
     time = data(2:end, 1);
 
     plot(time/3600, distance/1000);
+    title("Cumulative Distance VS. Time")
+    xlabel("Time (h)")
+    ylabel("Cumulative Distance (m)")
 end

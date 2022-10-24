@@ -8,4 +8,8 @@ function velocity_cumulative_distance(data)
 
     % Distance (km) vs Velocity (kmh)
     plot(cumdis / 1000, velocities*3.6);
+
+    title("Velocity VS. Cumulative Distance")
+    xlabel("Cumulative Distance (m)")
+    ylabel("Velocity (Km/h)")
 end

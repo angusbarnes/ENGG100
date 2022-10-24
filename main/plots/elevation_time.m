@@ -1,3 +1,4 @@
+
 % This file is assigned to: Ethan Mackay
 % This file was developed by: Ethan Mackay
 
@@ -17,7 +18,7 @@ function elevation_time(data)
     % smoothing to the graph. Without this the graph looks very challenging
     % to read as the elevation values can be quite noisy. This may be due
     % to the imprecise nature of using a phone GPS
-    elevations = movmean(elevations(2:end)./distances, 6) * 100;
+    elevations = movmean(elevations(2:end)./distances, Settings.GentleSmooth()) * 100;
     
     grid on;
     hold on;
@@ -31,7 +32,7 @@ function elevation_time(data)
     ylim([-maximum maximum])
     
     title('Elevation grade')
-    xlabel('Time interval')
+    xlabel('Time (h)')
     ylabel('Elevation (m)')
     
     yyaxis left;

@@ -26,7 +26,7 @@ function acceleration_time(data)
     acceleration = velocity_deltas ./ times(1:5:end);
 
     % Plot with some further smoothing applied
-    plot(data(1:5:end,1)/3600,movmean(acceleration, 5));
+    plot(data(1:5:end,1)/3600,movmean(acceleration, Settings.GentleSmooth()));
     title("Graph of Tangential Acceleration")
     ylabel('Tangential Acceleration (m/s^2)')
     xlabel('Time (h)')

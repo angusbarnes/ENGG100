@@ -28,9 +28,9 @@ function spatial_plot(data)
     
     % Some manual adjustment to see picture better
     zlim([-100, 100])
-    view([45 24])
+    view([-45 16])
     
-    legend("Path","Starting Point")
+    legend("Path","Starting Point", Location="southoutside")
     
     zlabel("Elevation (m)")
     ylabel("Relative Northing (m)")
