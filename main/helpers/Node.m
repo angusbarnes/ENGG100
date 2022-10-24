@@ -1,7 +1,10 @@
+% This File Was Assigned To: Angus Barnes
+% This File Was Developed By: Angus Barnes
+% This file provides a custom Node data type which is used in the
+% generalised parser implementation
+
 classdef Node
-    %NODE Summary of this class goes here
-    %   Detailed explanation goes here
-    
+  
     properties
         Name
         ChildNodes = [];
@@ -9,11 +12,11 @@ classdef Node
     
     methods
         function obj = Node(name)
-            %NODE Construct an instance of this class
-            %   Detailed explanation goes here
+            % Construct an instance of this class
             obj.Name = name;
         end
-
+        
+        % Override the class object's default implicit conversion operator
         function string = str(obj)
             string = obj.Name;
         end

@@ -1,6 +1,5 @@
-% converting table of lat-long positions
-% into a list of northings and eastings coordinates
-%By Hasaan Mohammad Farache
+% File Was Assigned To: Hasaan Farache
+% File Was Developed By: Hasaan Farache
 
 function output = convert(coord_pairs)
     latitude = coord_pairs(:, 1);

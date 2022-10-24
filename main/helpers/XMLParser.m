@@ -1,11 +1,9 @@
-% The main data file parser.
-% Will read GPX file into usable format
-% Assigned to: Angus B
+% This File Was Assigned To: Angus Barnes
+% This File Was Developed By: Angus Barnes
+% This is an implementation of a basic linear parser. 
+% This is an agnostic XML parser and will parse any XML File
+% It provides and API to filter and retrieve data based on tag names
 
-% Use standard linear file parser pattern
-% Should be content agnostic
-% Handling specific fields can be done down the line
-% This parser should be able to handle any XML file
 classdef XMLParser
     
     % Class variables
@@ -58,7 +56,7 @@ classdef XMLParser
         % The structure should be a tree
         % This can be implemented using a cell array of
         % custom Node data types.
-        % A Nodes can reference other subnodes or be a single value
+        % Nodes can reference other subnodes or be a single value
         function obj = Parse(obj)
             fileHandle = fopen(obj.filename, 'r');
             
@@ -74,7 +72,7 @@ classdef XMLParser
             
             % This is an obj.Advance() call. Because MATLAB is so
             % poorly implemented to handle procedural programing
-            % however. It is not performance friendly to call
+            % it is not performance friendly to call
             % functions at high frequency (in this case 100,000+
             % times). Instead I just copy pasted obj.Advance
             % locally everywhere it is needed
@@ -90,14 +88,28 @@ classdef XMLParser
             % modify instance values in-place
             % TLDR: There be demons ahead
             while obj.index <= length(obj.chars)
+
+                % If we find a '<' it means we have found a tag
                 if obj.currentChar == '<'
+                    % The previous expression must be finished if we are
+                    % starting a new tag collection
                     obj = obj.EndExpression();
+
+                    % Collect all the proceeding characters until we hit a
+                    % closing '>'. This is will be a tag name and will be
+                    % appened to the token list
                     obj = obj.CollectNode('>');
+                
+                % If we still have characters left to parse but we are not
+                % currently collecting a tag, append those characters to
+                % the currently collected expresion. This will be added to
+                % the token list when EndExpression gets called
                 elseif obj.currentChar ~= ""
                     obj.expr(obj.exprIndex) = obj.currentChar;
                     obj.exprIndex = obj.exprIndex + 1;
                 end
                 
+                % obj.Advance() -> Move to next character
                 obj.index = obj.index + 1;
                 if ~(obj.index > obj.EOF)
                     obj.currentChar = obj.chars(obj.index);
@@ -109,27 +121,35 @@ classdef XMLParser
 
             % Uses slightly more memory than necessary but massively
             % improves parser speed. Dynamic vector allocation
-            % is slow. This pre-allocates 2000 bytes of memory
+            % is slow. This pre-allocates ~900 bytes of memory
             % for the tag data which should never causes RAM
             % limit issues on modern machines
             % Measured speed improvement of ~200%
             tagData = blanks(XMLParser.TOKEN_MAX_LENGTH);
             
+            % obj.Advance() -> Move to next character
             obj.index = obj.index + 1;
             if ~(obj.index > obj.EOF)
                 obj.currentChar = obj.chars(obj.index);
             end
             
             i = 1;
+
+            % Move through and consume all characters stored within this
+            % node until the delimiter is hit
             while obj.currentChar ~= delimiter
                 % The list will dynamically extend if necessary
                 % TOKEN_MAX_LENGTH is therefore a soft limit
                 
-                % If there is arguments in this XML tag, collec them
+                % If there is arguments in this XML tag, collect them
                 % and insert them as new nodes in the output
                  if obj.currentChar == '"'
+
+                    % Recursively call this function to collect tag meta
+                    % data which is contained in " "
                     obj = obj.CollectNode('"');
                     
+                    % obj.Advance() -> Move to next character
                     obj.index = obj.index + 1;
                     if ~(obj.index > obj.EOF)
                         obj.currentChar = obj.chars(obj.index);
@@ -151,6 +171,9 @@ classdef XMLParser
             % downfield processing and reduce RAM load
             value = strip(tagData);
             
+            % Hacky poor quality way of keeping count of how many
+            % coordinate values have been collected, agnostic of their
+            % contained coordinates
             if strcmp(value,'trkpt lat= lon=')
                 obj.dataCount = obj.dataCount + 1;
             end
@@ -158,6 +181,8 @@ classdef XMLParser
             obj.nodes(end+1) = Node(value);            
         end
 
+        % Function is used to add collected expression to token list and
+        % reset currently collected expression value to be empty
         function obj = EndExpression(obj)
             
             if isempty(obj.expr)
@@ -188,9 +213,10 @@ classdef XMLParser
         % decrease of 6000%. This is curious, so I left the code here.
         % I believe this is due to matlabs first class object
         % implementation. Something about this code results in the array
-        % obj.nodes being copied in memory to a new adress every time this
-        % was called, which was about 15,000 times. This is a classic sign
-        % of lazy compiler design
+        % obj.nodes being copied in memory to a new address every time this
+        % was called, which was about 15,000 times. This is an inherent
+        % limitation of the MATLAB compiler design as it is optimised for
+        % other use cases
         function obj = Append(obj, node)
             obj.nodes(end + 1) = node;
         end
@@ -202,11 +228,17 @@ classdef XMLParser
             list = [];
             
             if method == XMLParser.TIME_HANDLING_METHOD
+                
+                % The first time value in the GPX file is a metadata tag
+                % This gives us reference from which all other time values
+                % can be measured
                 epoch = -1;
                 epochDay = -1;
                 list = zeros(obj.dataCount, 1);
                 listIndex = 1;
                 
+                % Find all time nodes and calculate time since epoch for
+                % that node
                 for i = 1:length(obj.nodes)
                     if strcmp(obj.nodes(i).Name,'time')
                         
@@ -240,7 +272,9 @@ classdef XMLParser
                 end
                 return
             end
-
+            
+            % Hard coded routine to retrieve a numerical value stored
+            % within a tag node
             if method == XMLParser.NUMERICAL_HANDLING_METHOD
                 list = zeros(obj.dataCount, 1);
                 listIndex = 1;
@@ -252,6 +286,9 @@ classdef XMLParser
                         listIndex = listIndex + 1;
                     end
                 end
+
+            % Hard coded routine to extract coordinate values from Trkpt
+            % Nodes
             elseif method == XMLParser.COORDINATE_HANDLING_METHOD
                 list = zeros(obj.dataCount, 2);
                 listIndex = 1;

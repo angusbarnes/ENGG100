@@ -1,4 +1,8 @@
+% This file is assigned to: Angus Nash
+% This file was developed by: Angus Nash
+% Integrated and Edited By: Angus Barnes
 
+% Create Spatial Plot graph
 function spatial_plot(data)
     
     % Get local copies of the coordinate information
@@ -17,9 +21,12 @@ function spatial_plot(data)
     z_coords = z_coords - z_offset;
     
     hold on
+
+    % Plot all path points
     plot3(x_coords, y_coords, z_coords)
     plot3(0,0, z_coords(1), MarkerSize=12,Marker=".")
     
+    % Some manual adjustment to see picture better
     zlim([-100, 100])
     view([45 24])
     
@@ -28,5 +35,6 @@ function spatial_plot(data)
     zlabel("Elevation (m)")
     ylabel("Relative Northing (m)")
     xlabel("Relative Easting (m)")
+    title("3D Plot of Ride")
     hold off
 end

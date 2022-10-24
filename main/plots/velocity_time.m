@@ -1,7 +1,7 @@
-% This file is assigned to: Hasaan
-% This code does the plotting for the Velocity (Km/h) vs time (h)
+% This file is assigned to: Hasaan Farache
+% This file was developed by: Hasaan Farache
 
-function velocity = velocity(data1)
+function velocity = velocity_time(data1)
     % the code above creates the function for velocity, and gets the input values
 
    time = data1(:, 1);
@@ -34,7 +34,7 @@ function velocity = velocity(data1)
     % so the last value isn't needed, as it is the same as the first.
 
     distance_diff = sqrt((y_diff) .^ 2 + (x_diff) .^ 2);
-    % the code above uses hypothesus rule to calculate the distance
+    % the code above uses pythagoras rule to calculate the distance
     % between two points
 
     ele_shifted = circshift(elevation,-1);
