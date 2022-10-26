@@ -1,1 +1,79 @@
-<mxfile host="app.diagrams.net" modified="2022-10-26T05:06:29.179Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" version="20.5.1" etag="-AZn-V2Fc8zBWYB8Tz7P" type="github"><diagram id="38IJNO0z-x30q4uIbXzr">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-10-26T05:13:02.540Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="i8ByZmUzLTbiXRzqWfc5" version="20.5.1" type="github">
+  <diagram id="38IJNO0z-x30q4uIbXzr" name="Page-1">
+    <mxGraphModel dx="1422" dy="697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9KtyX3knVlub2a27nnVx-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-1" target="9KtyX3knVlub2a27nnVx-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-2" target="9KtyX3knVlub2a27nnVx-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-2" value="Receive Master Data Table from Plot Manager" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-3" value="Fetch the calculated velocities from Hasaan&#39;s Code" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-4" value="Fetch the calculated time intervals from the time helper function" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-5" value="Circle Shift the velocity array and subtract it from the original" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-6" value="Reset first value in this array to account for Circle shift wrap around" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-8" target="9KtyX3knVlub2a27nnVx-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-8" value="Divide these velocity intervals by the time interval list" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="650" y="112" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-9" target="9KtyX3knVlub2a27nnVx-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-9" value="Apply a small moving average to smooth noise" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="510" y="112" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-11" target="9KtyX3knVlub2a27nnVx-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-11" value="Plot the newly calculated accelerations against the original time series" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="220" y="112" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-12" value="End" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="10" y="102" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-13" target="9KtyX3knVlub2a27nnVx-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-13" value="Fetch the calculated velocities from Hasaan&#39;s Code" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="230" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-14" target="9KtyX3knVlub2a27nnVx-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-14" value="Fetch the calculated time intervals from the time helper function" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="370" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-15" target="9KtyX3knVlub2a27nnVx-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-15" value="Circle Shift the velocity array and subtract it from the original" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="510" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9KtyX3knVlub2a27nnVx-16" target="9KtyX3knVlub2a27nnVx-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9KtyX3knVlub2a27nnVx-16" value="Reset first value in this array to account for Circle shift wrap around" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="650" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
