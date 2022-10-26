@@ -1,1 +1,64 @@
-<mxfile host="app.diagrams.net" modified="2022-10-26T05:40:04.306Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" version="20.5.1" etag="UChpGiq-5URYpOvl6O94" type="github"><diagram id="-zGLyuQJ1BI1raParWwJ">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-10-26T05:48:10.677Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="M2xg6JLRvzXdf6x8_nju" version="20.5.1" type="github">
+  <diagram id="-zGLyuQJ1BI1raParWwJ" name="Page-1">
+    <mxGraphModel dx="1422" dy="697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-1" target="RmWRpCUDi2Vm8r-QnTjs-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="10" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-2" target="RmWRpCUDi2Vm8r-QnTjs-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-2" value="Receive Master Table Data from the plotting manager" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="17" y="120" width="206" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-3" target="RmWRpCUDi2Vm8r-QnTjs-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-3" value="Get the elevation grade calculations from Ethan&#39;s code and calculated velocity intervals from Hasaan&#39;s." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="23.5" y="200" width="193" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-4" target="RmWRpCUDi2Vm8r-QnTjs-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-4" value="Calculate Fg, Fa and Fd components of the model provided by Omni Calcutor. Using elevation grade matrix and velocity matrix as inputs for &#39;slope&#39; and &#39;v&#39;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="21.75" y="280" width="196.5" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-5" target="RmWRpCUDi2Vm8r-QnTjs-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-5" value="Combine Fg, Fa and Fd components using the formula provided by Omni Calculator. This produces a 1-by-X matrix of power generation values" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="260" y="120" width="196.5" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-6" target="RmWRpCUDi2Vm8r-QnTjs-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-6" value="Compute total power generation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="260" y="255" width="196.5" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-7" target="RmWRpCUDi2Vm8r-QnTjs-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-7" value="Plot power generation against time as well a total power generation" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="260" y="310" width="198.25" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-14" value="End" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="318.25" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-16" value="A" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="80" y="400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmWRpCUDi2Vm8r-QnTjs-17" target="RmWRpCUDi2Vm8r-QnTjs-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RmWRpCUDi2Vm8r-QnTjs-17" value="A" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="319.13" y="10" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
