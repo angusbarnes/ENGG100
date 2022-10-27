@@ -1,5 +1,5 @@
-% Provides a simple interface for adding and remocing plotting functions to
-% save to file. List is a cell array of function_handle and filename
+% Provides a simple interface for adding and removing plotting functions to
+% save to file. List is a cell array of function_handles and filename
 % pairings
 function list = get_plot_list() 
     list = {

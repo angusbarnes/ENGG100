@@ -1,4 +1,3 @@
-
 % NOTICE: There is a Settings.m file in this directory that has some
 % settings which can be tweaked. They have been initialised to values we
 % determined to be optimal. If needed, enabling the 
@@ -9,7 +8,7 @@
 % our code but rather MATLAB's horrific implementation of code caching and
 % object instantiation.
 
-% Add the folder containing helper functions to the MATLAB envrionement at
+% Add the folder containing helper and plot functions to the MATLAB envrionement at
 % runtime. This helps to keep the file tree clean and prevented environment
 % naming clashes in the prototyping stage of this project
 addpath(genpath('helpers'))
